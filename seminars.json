@@ -1,102 +1,57 @@
 [
     {
         "id": 1,
-        "name": "Antistres – tělo, dýchání, mysl",
+        "name": "Moderní psychologie",
         "capacity": 15
     },
     {
         "id": 2,
-        "name": "Deskriptivní geometrie",
+        "name": "Otevřena laboratoř",
         "capacity": 15
     },
     {
         "id": 3,
-        "name": "Fyzikální seminář",
+        "name": "Southern gothic literature",
         "capacity": 15
     },
     {
         "id": 4,
-        "name": "Chapters on Economics, Business and Finance",
+        "name": "Praktická biologie",
         "capacity": 15
     },
     {
         "id": 5,
-        "name": "Identity design",
+        "name": "Public speaking",
         "capacity": 15
     },
     {
         "id": 6,
-        "name": "Kalistenika",
+        "name": "Vizuální tvorba",
         "capacity": 15
     },
     {
         "id": 7,
-        "name": "Lehký úvod do LaTeXu, aneb zahoď Word",
+        "name": "Nutritional anthropology",
         "capacity": 15
     },
     {
         "id": 8,
-        "name": "Marketing communication",
+        "name": "Překlad a psaní",
         "capacity": 15
     },
     {
         "id": 9,
-        "name": "Matematický seminář „Co se nevejde do hodin matematiky“",
+        "name": "Základy latiny",
         "capacity": 15
     },
     {
         "id": 10,
-        "name": "Nutritional Anthropology",
+        "name": "Zajímavá matematika",
         "capacity": 15
     },
     {
         "id": 11,
-        "name": "Otevřená laboratoř",
-        "capacity": 15
-    },
-    {
-        "id": 12,
-        "name": "Relaxační výtvarné aktivity",
-        "capacity": 15
-    },
-    {
-        "id": 13,
-        "name": "Seminář latiny",
-        "capacity": 15
-    },
-    {
-        "id": 14,
-        "name": "Seminář mikropovídek (španělština)",
-        "capacity": 15
-    },
-    {
-        "id": 15,
-        "name": "Divadelní seminář",
-        "capacity": 15
-    },
-    {
-        "id": 16,
-        "name": "Tvůrčí překlad a psaní",
-        "capacity": 15
-    },
-    {
-        "id": 17,
-        "name": "Botanika: Svět rostlin",
-        "capacity": 15
-    },
-    {
-        "id": 18,
-        "name": "Základy filmové scenáristiky a režie",
-        "capacity": 15
-    },
-    {
-        "id": 19,
-        "name": "Žena v dějinách",
-        "capacity": 15
-    },
-    {
-        "id": 20,
-        "name": "AP kurzy (online)",
+        "name": "Antistres",
         "capacity": 15
     }
 ]
