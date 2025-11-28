@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Registrace na semináře</h2>
+    <form action="{{ url_for('submit') }}" method="POST">
+        <div class="form-group">
+            <label for="name">Jméno a Příjmení:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="class">Třída:</label>
+            <input type="text" id="class" name="class" required>
+        </div>
+
+        <div class="form-group">
+            <label for="choice1">1. Volba (Nejvyšší priorita):</label>
+            <select id="choice1" name="choice1" required>
+                <option value="" disabled selected>Vyberte seminář...</option>
+                {% for s in seminars %}
+                <option value="{{ s.id }}">{{ s.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="choice2">2. Volba:</label>
+            <select id="choice2" name="choice2" required>
+                <option value="" disabled selected>Vyberte seminář...</option>
+                {% for s in seminars %}
+                <option value="{{ s.id }}">{{ s.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="choice3">3. Volba:</label>
+            <select id="choice3" name="choice3" required>
+                <option value="" disabled selected>Vyberte seminář...</option>
+                {% for s in seminars %}
+                <option value="{{ s.id }}">{{ s.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn">Odeslat volby</button>
+    </form>
+</div>
+{% endblock %}

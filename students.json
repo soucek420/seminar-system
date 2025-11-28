@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "jakub renner",
+        "class": "5ag",
+        "choices": [
+            7,
+            17,
+            11
+        ],
+        "assigned_seminar_id": 7,
+        "timestamp": "2025-11-25T13:54:42.542412"
+    }
+]

@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container full-width">
+    <h2>Administrace</h2>
+
+    <div class="actions">
+        <form action="{{ url_for('assign') }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn btn-primary">Spustit Rozřazovací Algoritmus</button>
+        </form>
+    </div>
+
+    <div class="stats-grid">
+        <div class="card">
+            <h3>Přehled Seminářů</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Název</th>
+                        <th>Kapacita</th>
+                        <th>Zapsáno</th>
+                        <th>Stav</th>
+                        <th>Akce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for id, data in stats.items() %}
+                    <tr>
+                        <td>{{ id }}</td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.capacity }}</td>
+                        <td>{{ data.count }}</td>
+                        <td>
+                            <progress value="{{ data.count }}" max="{{ data.capacity }}"></progress>
+                            {{ ((data.count / data.capacity) * 100)|round|int }}%
+                        </td>
+                        <td>
+                            <form action="{{ url_for('update_capacity') }}" method="POST" class="inline-form">
+                                <input type="hidden" name="seminar_id" value="{{ id }}">
+                                <input type="number" name="capacity" value="{{ data.capacity }}" style="width: 60px;">
+                                <button type="submit" class="btn-small">Upravit</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="lists-grid">
+        <div class="card">
+            <h3>Nepřiřazení Studenti</h3>
+            {% if unassigned %}
+            <ul>
+                {% for s in unassigned %}
+                <li class="warning">{{ s.name }} ({{ s.class }}) - Volby: {{ s.choices }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="success">Všichni studenti jsou přiřazeni!</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h3>Seznam všech studentů</h3>
+            <details>
+                <summary>Zobrazit seznam</summary>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Jméno</th>
+                            <th>Třída</th>
+                            <th>Přiřazeno ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for s in students %}
+                        <tr>
+                            <td>{{ s.name }}</td>
+                            <td>{{ s.class }}</td>
+                            <td>{{ s.assigned_seminar_id if s.assigned_seminar_id else '---' }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </details>
+        </div>
+    </div>
+</div>
+{% endblock %}
