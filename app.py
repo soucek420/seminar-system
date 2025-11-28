@@ -1,9 +1,22 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory, session
 from logic import load_data, save_data, add_student, run_assignment_algorithm
+from functools import wraps
 
 # CHANGE: Set template_folder to current directory ('.') so we don't need a templates folder
 app = Flask(__name__, template_folder='.')
-app.secret_key = 'supersecretkey' # Needed for flash messages
+app.secret_key = 'supersecretkey' # Needed for flash messages and session
+
+# Simple password for admin (in a real app, use environment variables)
+ADMIN_PASSWORD = 'admin'
+
+# Decorator to require login
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('logged_in'):
+            return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # CHANGE: Route to serve style.css from the root directory
 @app.route('/style.css')
@@ -14,6 +27,24 @@ def style():
 def index():
     seminars, _ = load_data()
     return render_template('index.html', seminars=seminars)
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if password == ADMIN_PASSWORD:
+            session['logged_in'] = True
+            flash('Úspěšně přihlášeno.', 'success')
+            return redirect(url_for('admin'))
+        else:
+            flash('Špatné heslo.', 'error')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('Odhlášeno.', 'info')
+    return redirect(url_for('index'))
 
 @app.route('/submit', methods=['POST'])
 def submit():
@@ -40,6 +71,7 @@ def submit():
     return redirect(url_for('index'))
 
 @app.route('/admin')
+@login_required
 def admin():
     seminars, students = load_data()
     
@@ -58,12 +90,14 @@ def admin():
     return render_template('admin.html', seminars=seminars, stats=seminar_stats, unassigned=unassigned_students, students=students)
 
 @app.route('/admin/assign', methods=['POST'])
+@login_required
 def assign():
     result = run_assignment_algorithm()
     flash(f"Algorithm finished. Assigned: {result['assigned']}, Unassigned: {result['unassigned']}", 'info')
     return redirect(url_for('admin'))
 
 @app.route('/admin/update_capacity', methods=['POST'])
+@login_required
 def update_capacity():
     seminar_id = int(request.form.get('seminar_id'))
     new_capacity = int(request.form.get('capacity'))
