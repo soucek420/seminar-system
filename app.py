@@ -1,8 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_from_directory
 from logic import load_data, save_data, add_student, run_assignment_algorithm
 
-app = Flask(__name__)
+# CHANGE: Set template_folder to current directory ('.') so we don't need a templates folder
+app = Flask(__name__, template_folder='.')
 app.secret_key = 'supersecretkey' # Needed for flash messages
+
+# CHANGE: Route to serve style.css from the root directory
+@app.route('/style.css')
+def style():
+    return send_from_directory('.', 'style.css')
 
 @app.route('/')
 def index():
